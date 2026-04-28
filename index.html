@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  overflow: hidden;
+  background: #ffd6e7;
+  text-align: center;
+}
+
+/* INTRO TEXT */
+#text {
+  margin-top: 40vh;
+  font-size: 24px;
+}
+
+/* HEARTS */
+.heart {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to { transform: translateY(100vh); }
+}
+
+/* COUNTDOWN */
+#countdownScreen { display: none; }
+
+#timer {
+  font-size: 26px;
+  margin: 10px;
+}
+
+/* BUTTONS */
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #87CEEB;
+  color: black;
+}
+
+.actionBtn {
+  display: none;
+}
+
+/* BLACK SCREEN */
+#blackScreen {
+  display: none;
+  background: black;
+  color: white;
+  min-height: 100vh;
+}
+
+/* LAYOUT */
+#contentWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+#leftSide {
+  width: 50%;
+}
+
+#rightSide {
+  width: 50%;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+}
+
+/* IMAGES */
+img.decor, img.balloon, img.cake {
+  display: none;
+  width: 180px;
+  margin: 10px 0;
+}
+
+img.cake {
+  width: 220px;
+}
+
+/* FINAL TEXT */
+#finalText {
+  display: none;
+  line-height: 1.5;
+}
+
+/* 📱 MOBILE FIX */
+@media (max-width: 768px) {
+  #contentWrap {
+    flex-direction: column;
+  }
+
+  #leftSide, #rightSide {
+    width: 100%;
+    text-align: center;
+  }
+
+  #rightSide {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  img.decor, img.balloon {
+    width: 140px;
+  }
+
+  img.cake {
+    width: 170px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="text"></div>
+
+<div id="countdownScreen">
+  <h2>The world just got luckier since</h2>
+  <div id="timer"></div>
+  <img src="IMG_3084.jpeg" width="200">
+  <br>
+  <button onclick="goNext()">Continue</button>
+</div>
+
+<div id="blackScreen">
+
+  <button id="btn1" class="actionBtn" onclick="lightOn()">Light On</button>
+  <button id="btn2" class="actionBtn" onclick="playMusic()">Turn On Music</button>
+  <button id="btn3" class="actionBtn" onclick="showDecor()">Decorate</button>
+  <button id="btn4" class="actionBtn" onclick="flyBalloons()">Fly Balloons</button>
+
+  <div id="contentWrap">
+
+    <div id="leftSide">
+      <img src="IMG_3389.jpeg" class="decor" id="decor">
+      <img src="IMG_3388.jpeg" class="balloon" id="balloons">
+      <img src="A9A95FEC-3548-4579-9758-74AE16125DAB.gif" class="cake" id="cake">
+    </div>
+
+    <div id="rightSide">
+      <p id="finalText">
+May every wish you make today come true you deserve the world and i’ll be always here to remind you that my love happy birthday my pretty girl i really wish i could be there with you celebrating your special day with you ❤️
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<audio id="song" src="Charlie Puth - Hero (Official Audio) - Charlie Puth (192k).mp3"></audio>
+
+<script>
+// TEXT FLOW
+const texts = [
+"Happy birthday my love ❤️",
+"I wish i could be there with you on your special day ☹️",
+"But we will celebrate it even from a distance"
+];
+
+let i = 0;
+function showText() {
+  if (i < texts.length) {
+    document.getElementById("text").innerText = texts[i];
+    i++;
+    setTimeout(showText, 3000);
+  } else {
+    document.getElementById("text").style.display = "none";
+    document.getElementById("countdownScreen").style.display = "block";
+  }
+}
+showText();
+
+// HEARTS
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.animationDuration = (Math.random()*3+2) + "s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+}, 300);
+
+// COUNTDOWN
+function updateTimer() {
+  const start = new Date("April 29, 2006 00:00:00");
+  const now = new Date();
+  let diff = Math.floor((now - start)/1000);
+
+  let d = Math.floor(diff/86400);
+  let h = Math.floor((diff%86400)/3600);
+  let m = Math.floor((diff%3600)/60);
+  let s = diff%60;
+
+  document.getElementById("timer").innerText =
+    `${d} : ${h} : ${m} : ${s}`;
+}
+setInterval(updateTimer, 1000);
+
+// FLOW
+function goNext(){
+  document.getElementById("countdownScreen").style.display="none";
+  document.getElementById("blackScreen").style.display="block";
+  document.getElementById("btn1").style.display="inline-block";
+}
+
+// BUTTON FLOW
+function lightOn(){
+  document.getElementById("blackScreen").style.background="white";
+  document.getElementById("blackScreen").style.color="black";
+  document.getElementById("btn1").style.display="none";
+  document.getElementById("btn2").style.display="inline-block";
+}
+
+function playMusic(){
+  document.getElementById("song").play();
+  document.getElementById("btn2").style.display="none";
+  document.getElementById("btn3").style.display="inline-block";
+}
+
+function showDecor(){
+  document.getElementById("decor").style.display="block";
+  document.getElementById("btn3").style.display="none";
+  document.getElementById("btn4").style.display="inline-block";
+}
+
+function flyBalloons(){
+  document.getElementById("balloons").style.display="block";
+  document.getElementById("cake").style.display="block";
+  document.getElementById("finalText").style.display="block";
+  document.getElementById("btn4").style.display="none";
+}
+</script>
+
+</body>
+</html>
