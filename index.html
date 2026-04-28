@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday my love i really wish i could be there but we will celebrate it even from a distance ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  background: #ffd6e7;
+  text-align: center;
+}
+
+/* TEXT */
+#text {
+  margin-top: 40vh;
+  font-size: 24px;
+  color: #333;
+}
+
+/* HEARTS */
+.heart {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to { transform: translateY(100vh); }
+}
+
+/* COUNTDOWN */
+#countdownScreen {
+  display: none;
+}
+#timer {
+  font-size: 28px;
+  margin: 10px;
+}
+
+/* BUTTONS */
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 8px;
+  background: blue;
+  color: white;
+  font-size: 16px;
+}
+
+/* BLACK SCREEN */
+#blackScreen {
+  display: none;
+  background: black;
+  color: white;
+  height: 100vh;
+  width: 100%;
+}
+
+/* DECOR */
+#decor, #balloons, #cake {
+  display: none;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="text"></div>
+
+<div id="countdownScreen">
+  <h2>The world just got luckier since</h2>
+  <div id="timer"></div>
+  <img src="IMG_3084.jpeg" width="200">
+  <br>
+  <button onclick="goNext()">Continue</button>
+</div>
+
+<div id="blackScreen">
+  <br><br>
+  <button onclick="lightOn()">Light On</button><br>
+  <button onclick="playMusic()">Turn On Music</button><br>
+  <button onclick="showDecor()">Decorate</button><br>
+  <button onclick="flyBalloons()">Fly Balloons</button>
+
+  <div id="decor">🎉🎉🎉</div>
+  <div id="balloons">🎈🎈🎈</div>
+  <div id="cake">🎂</div>
+
+  <p id="finalText" style="display:none; padding:20px;">
+May every wish you make today come true you deserve the world and i’ll be always here to remind you that my love happy birthday my pretty girl i really wish i could be there with you celebrating your special day with you ❤️
+  </p>
+</div>
+
+<audio id="song" src="Charlie Puth - Hero (Official Audio) - Charlie Puth (192k).mp3"></audio>
+
+<script>
+// TEXT SEQUENCE
+const texts = [
+"Happy birthday my love ❤️",
+"I wish i could be there with you on your special day ☹️",
+"But we will celebrate it even from a distance"
+];
+
+let i = 0;
+function showText() {
+  if (i < texts.length) {
+    document.getElementById("text").innerText = texts[i];
+    i++;
+    setTimeout(showText, 3000);
+  } else {
+    document.getElementById("text").style.display = "none";
+    document.getElementById("countdownScreen").style.display = "block";
+  }
+}
+showText();
+
+// HEARTS
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.animationDuration = (Math.random()*3+2) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>heart.remove(),5000);
+}, 300);
+
+// COUNTDOWN
+function updateTimer() {
+  const start = new Date("April 29, 2006 00:00:00");
+  const now = new Date();
+  let diff = Math.floor((now - start)/1000);
+
+  let h = Math.floor(diff/3600);
+  let m = Math.floor((diff%3600)/60);
+  let s = diff%60;
+
+  document.getElementById("timer").innerText =
+    `${h} : ${m} : ${s}`;
+}
+setInterval(updateTimer, 1000);
+
+// FLOW
+function goNext(){
+  document.getElementById("countdownScreen").style.display="none";
+  document.getElementById("blackScreen").style.display="block";
+}
+
+function lightOn(){
+  document.getElementById("blackScreen").style.background="white";
+  document.getElementById("blackScreen").style.color="black";
+}
+
+function playMusic(){
+  document.getElementById("song").play();
+}
+
+function showDecor(){
+  document.getElementById("decor").style.display="block";
+}
+
+function flyBalloons(){
+  document.getElementById("balloons").style.display="block";
+  document.getElementById("cake").style.display="block";
+  document.getElementById("finalText").style.display="block";
+}
+</script>
+
+</body>
+</html>
